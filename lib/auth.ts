@@ -41,7 +41,7 @@ export const authOptions: AuthOptions = {
         email: { label: "email", type: "text" },
         password: { label: "password", type: "password" },
       },
-      // @ts-expect-error
+      // @ts-expect-error: Тип id должен быть строкой, а Prisma возвращает его как число
       async authorize(credentials) {
         if (!credentials) return null;
         const user = await prisma.user.findFirst({
