@@ -1,4 +1,3 @@
-// @ts-ignore
 import { UserRole } from "@prisma/client";
 import { AuthOptions } from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
@@ -42,6 +41,7 @@ export const authOptions: AuthOptions = {
         email: { label: "email", type: "text" },
         password: { label: "password", type: "password" },
       },
+      // @ts-expect-error
       async authorize(credentials) {
         if (!credentials) return null;
         const user = await prisma.user.findFirst({
