@@ -35,7 +35,7 @@ const AuthModel: React.FC = () => {
             onClick={() =>
               signIn("github", {
                 redirect: true,
-                callbackUrl: "/",
+                callbackUrl: "https://swift-chat-fawn.vercel.app/",
               })
             }
             className={Styles.github}
@@ -50,7 +50,7 @@ const AuthModel: React.FC = () => {
             onClick={() =>
               signIn("google", {
                 redirect: true,
-                callbackUrl: "/",
+                callbackUrl: "https://swift-chat-fawn.vercel.app/",
               })
             }
             className={Styles.Google}
