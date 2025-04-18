@@ -1,4 +1,3 @@
-import Image from "next/image";
 import styles from "./page.module.scss";
 import ClintPage from "@/Components/client-page";
 import { getServerSession } from "next-auth";

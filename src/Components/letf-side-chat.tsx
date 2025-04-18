@@ -1,5 +1,5 @@
 "use client";
-
+// eslint-disable-next-line react-hooks/rules-of-hooks
 import React from "react";
 import Styles from "../Sass/Chat.module.scss";
 import Search from "./Comp-blocks/Search";
@@ -96,7 +96,9 @@ const Chat: React.FC<Props> = ({ session }) => {
     try {
       deleteChat(chatId);
       ChatStore.setState({ selectedChat: null });
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const onMouseUp = () => {

@@ -5,7 +5,6 @@ import { CreateUser } from "@/app/actions";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormInput } from "../Comp-blocks/FormInput";
-interface Props {}
 
 const RegisterForm: React.FC<Props> = () => {
   const onSubmit = async (data: TformRegisterValues) => {

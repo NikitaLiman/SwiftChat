@@ -26,7 +26,7 @@ export const GET = async (req: Request) => {
 
     return NextResponse.json(users);
   } catch (error) {
-    console.error("Fault search:", error);
+    console.log("Fault search:", error);
     return NextResponse.json({ error: "Error server" }, { status: 500 });
   }
 };

@@ -198,7 +198,9 @@ const RightSide: React.FC<Props> = ({ session }) => {
       setTimeout(() => {
         setCopied(false);
       }, 1500);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
   const MessagesList = [
     { key: "Reply", icon: <Reply /> },

@@ -97,6 +97,7 @@ export const ChatStore = create<ChatProps>((set) => ({
         contactSent: sentChats,
       });
     } catch (error) {
+      console.log(error);
       set({ error: "Failed to fetch chats", isLoading: false });
     }
   },
@@ -110,6 +111,7 @@ export const ChatStore = create<ChatProps>((set) => ({
       }));
       await fetchMessages(chatId);
     } catch (error) {
+      console.log(error);
       set({ error: "Failed to delete chat" });
     }
   },
@@ -129,6 +131,7 @@ export const ChatStore = create<ChatProps>((set) => ({
       }));
       set({ messages: sortedMessages, error: null, isLoadingMessages: false });
     } catch (error) {
+      console.log(error);
       set({ error: "Failed to delete chat", isLoadingMessages: false });
     }
   },

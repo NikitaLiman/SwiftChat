@@ -1,6 +1,6 @@
 import React from "react";
 import Styles from "../../Sass/messagebar.module.scss";
-import { Paperclip, SendHorizontal, Smile, X } from "lucide-react";
+import { SendHorizontal, Smile, X } from "lucide-react";
 import EmojiPicker, {
   Theme as EmojiPickerTheme,
   Theme,

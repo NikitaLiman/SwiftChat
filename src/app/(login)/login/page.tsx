@@ -7,9 +7,9 @@ import LoginForm from "@/Components/next-auth/logjn";
 import RegisterForm from "@/Components/next-auth/register";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-interface Props {}
+import Image from "next/image";
 
-const authModel: React.FC<Props> = () => {
+const AuthModel: React.FC = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
   React.useEffect(() => {
@@ -40,7 +40,7 @@ const authModel: React.FC<Props> = () => {
             }
             className={Styles.github}
           >
-            <img
+            <Image
               src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg"
               alt=""
             />
@@ -55,7 +55,7 @@ const authModel: React.FC<Props> = () => {
             }
             className={Styles.Google}
           >
-            <img
+            <Image
               src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/1200px-Google_%22G%22_logo.svg.png"
               alt=""
             />
@@ -73,4 +73,4 @@ const authModel: React.FC<Props> = () => {
   );
 };
 
-export default authModel;
+export default AuthModel;

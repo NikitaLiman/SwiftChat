@@ -42,6 +42,7 @@ export const GET = async (req: NextRequest) => {
     });
     return NextResponse.json(getMessages);
   } catch (error) {
+    console.log(error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 };

@@ -1,4 +1,3 @@
-import { NextResponse } from "next/server";
 import { prisma } from "../../../../../prisma/prisma-client";
 
 export async function DELETE(req: Request) {
@@ -20,6 +19,7 @@ export async function DELETE(req: Request) {
 
     return new Response(JSON.stringify(deleted), { status: 200 });
   } catch (error) {
+    console.log(error);
     return new Response("Failed to delete contact", { status: 500 });
   }
 }

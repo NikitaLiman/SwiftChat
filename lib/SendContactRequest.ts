@@ -10,7 +10,9 @@ export const sendFriendRequest = async (
       targetUserId,
     });
     console.log(res, "res");
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const deleteContact = async (userId: number, contactId: number) => {

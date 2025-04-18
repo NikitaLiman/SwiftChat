@@ -50,19 +50,6 @@ export const FormEdit: React.FC<Props> = ({
         </label>
       )}
 
-      {/* {value && (
-        <button
-          style={{
-            position: "absolute",
-            right: "5px",
-            top: "50%",
-            transform: "translateY(-40%)",
-          }}
-        >
-          <X onClick={onClickGear} size={16} />
-        </button>
-      )} */}
-
       {error && <FormError text={error} />}
     </div>
   );

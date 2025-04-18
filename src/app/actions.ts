@@ -67,6 +67,7 @@ export async function userSessionUpdate(body: Prisma.UserUpdateInput) {
 
 export async function CreateSavedChat(userId: number) {
   try {
+    // eslint-disable-next-line prefer-const
     let findChat = await prisma.chat.findFirst({
       where: {
         savedChat: true,
@@ -93,6 +94,7 @@ export async function CreateSavedChat(userId: number) {
       });
       return updatedChat;
     } else {
+      // eslint-disable-next-line prefer-const
       let newChat = await prisma.chat.create({
         data: {
           savedChat: true,
