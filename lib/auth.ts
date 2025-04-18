@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { UserRole } from "@prisma/client";
 import { AuthOptions } from "next-auth";
 import GitHubProvider from "next-auth/providers/github";

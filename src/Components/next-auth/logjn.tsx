@@ -8,7 +8,7 @@ import { FormInput } from "../Comp-blocks/FormInput";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
-const LoginForm: React.FC<Props> = () => {
+const LoginForm: React.FC = () => {
   const router = useRouter();
   const onSubmit = async (data: TformLoginValues) => {
     console.log("Form data:", data);
