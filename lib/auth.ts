@@ -111,12 +111,14 @@ export const authOptions: AuthOptions = {
           });
           return true;
         }
+
         await prisma.user.create({
           data: {
             email: user?.email,
             fullname: user?.name || "User #" + user.id,
             password: hashSync(user.id.toString(), 10),
             verified: new Date(),
+            // @ts-expect-error: avatar exists on extended user object but TS infers 'never' here
             avatar: user.image || findUser?.avatar,
             provider: account?.provider,
             providerId: account?.providerAccountId,
