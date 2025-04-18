@@ -146,7 +146,9 @@ const Chat: React.FC<Props> = ({ session }) => {
       click: deleteChat1,
     },
   ];
-
+  const HandleToogle = () => {
+    useClicked(!click);
+  };
   return (
     <div
       className={`${Styles.resizeCustom} ${isMobile ? Styles.mobileView : ""}`}
@@ -163,7 +165,7 @@ const Chat: React.FC<Props> = ({ session }) => {
         <div className={Styles.container__bar}>
           {click ? (
             <div className={Styles.arrow}>
-              <button onClick={() => useClicked(!click)}>
+              <button onClick={() => HandleToogle()}>
                 <ArrowLeft color="rgb(170, 170, 170)" size={26} />
               </button>
             </div>
