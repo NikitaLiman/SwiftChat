@@ -1,0 +1,104 @@
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+}
+
+.container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--MsPopUo);
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 15px;
+    max-width: 350px;
+    height: 250px;
+    padding: 20px;
+    border-radius: 12px;
+
+    width: 100%;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+    h1 {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--h1-color);
+    }
+
+    p {
+      font-size: 1.1rem;
+      text-align: start;
+      color: var(--h1-color);
+    }
+
+    .radioBox {
+      @include flex-center;
+      gap: 28px;
+
+      input {
+        accent-color: var(--input-hover);
+        cursor: pointer;
+        width: 20px;
+        height: 20px;
+        background-color: var(--background-right);
+      }
+
+      label {
+        font-size: 1.3rem;
+        color: var(--h1-color);
+        cursor: pointer;
+      }
+    }
+  }
+  .buttonGroup {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    flex: 1;
+    gap: 10px;
+    width: 100%;
+
+    button {
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: background-color 0.3s;
+    }
+    .cancel {
+      width: fit-content;
+      height: fit-content;
+      background-color: #3a3b3c;
+      color: var(--input-hover);
+
+      &:hover {
+        background-color: #565758;
+      }
+    }
+
+    .delete {
+      width: fit-content;
+      height: fit-content;
+      background-color: #ff4747;
+      color: white;
+
+      &:hover {
+        background-color: #d93a3a;
+      }
+    }
+  }
+}

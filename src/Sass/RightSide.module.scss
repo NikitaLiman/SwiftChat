@@ -1,0 +1,402 @@
+.container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-color: var(--background-right);
+  display: flex;
+  .copied {
+    position: absolute;
+    top: 100px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    z-index: 100;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    animation: fadeInUp 0.5s forwards;
+
+    &__content {
+      background-color: var(--input-hover);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      &::before {
+        content: "✓";
+        display: inline-block;
+        font-size: 1.1em;
+        margin-right: 4px;
+      }
+    }
+  }
+
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .flexContainer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+    &__content {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+
+      &::-webkit-scrollbar {
+        width: 6px;
+        @media (min-width: 768px) {
+          width: 8px;
+        }
+      }
+
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+        transition: background 0.3s;
+      }
+
+      &::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.4);
+      }
+
+      &__messages {
+        width: 100%;
+        max-width: 50vw;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        padding: 0px 1.5rem;
+
+        @media (max-width: 992px) {
+          max-width: 70vw;
+        }
+
+        @media (max-width: 768px) {
+          max-width: 100%;
+          padding: 0px 0.5rem;
+        }
+
+        .messagegroup {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+
+          .MessagesPopUp {
+            position: absolute;
+            background-color: var(--MsPopUo);
+            backdrop-filter: blur(10px);
+            width: 160px;
+            height: 120px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            z-index: 10;
+
+            @media (max-width: 768px) {
+              width: 140px;
+              height: 110px;
+            }
+
+            ul {
+              display: flex;
+              flex-direction: column;
+              gap: 5px;
+              padding: 0.5rem 0.4rem;
+              li {
+                border-radius: 5px;
+                padding: 0.2rem;
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                color: var(--h1-color);
+                cursor: pointer;
+                span {
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  svg {
+                    color: var(--background-right);
+                  }
+                }
+                &:hover {
+                  background-color: var(--input-hover);
+                }
+              }
+            }
+          }
+
+          .info {
+            position: relative;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+
+            .logo {
+              flex-shrink: 0;
+              img {
+                border-radius: 100%;
+                width: 36px;
+                height: 36px;
+
+                @media (min-width: 768px) {
+                  width: 44px;
+                  height: 44px;
+                }
+              }
+
+              &__avatar {
+                border-radius: 100%;
+                width: 36px;
+                height: 36px;
+                background-color: rgb(135, 116, 225);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                font-size: 1rem;
+                font-weight: bold;
+
+                @media (min-width: 768px) {
+                  width: 44px;
+                  height: 44px;
+                  font-size: 1.2rem;
+                }
+              }
+            }
+
+            .user {
+              h2 {
+                color: var(--h1-color);
+                font-size: 0.9rem;
+
+                @media (min-width: 768px) {
+                  font-size: 1rem;
+                }
+              }
+              display: flex;
+              flex-direction: column;
+              gap: 5px;
+
+              .replyInfo {
+                background-color: var(--MsPopUo);
+                border-left: 3px solid var(--input-hover);
+                padding: 3px 8px;
+                margin-bottom: 5px;
+                border-radius: 4px;
+                font-size: 0.8em;
+
+                @media (min-width: 768px) {
+                  padding: 5px 10px;
+                  font-size: 0.9em;
+                }
+
+                .replyName {
+                  font-weight: 600;
+                  color: var(--input-hover);
+                  display: block;
+                  margin-bottom: 2px;
+                }
+
+                .replyText {
+                  color: var(--h1-color);
+                  white-space: nowrap;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  max-width: 150px;
+
+                  @media (min-width: 768px) {
+                    max-width: 200px;
+                  }
+                }
+              }
+            }
+          }
+
+          .first,
+          .second {
+            padding: 5px;
+            border-radius: 10px;
+
+            @media (min-width: 768px) {
+              padding: 10px;
+            }
+          }
+
+          .first {
+            align-self: flex-start;
+            .foundMessages {
+              color: var(--input-hover);
+            }
+            .curentFoundMessage {
+              color: #00bfff;
+            }
+            p {
+              position: relative;
+              background-color: var(--background-chat);
+              color: var(--h1-color);
+              max-width: 240px;
+              width: fit-content;
+              padding: 0.25rem 0.4rem 0.3rem;
+              border-radius: 20px;
+              border-end-start-radius: 0px;
+              word-break: break-word;
+              font-size: 0.9rem;
+
+              @media (min-width: 576px) {
+                max-width: 320px;
+              }
+
+              @media (min-width: 768px) {
+                max-width: 400px;
+                padding: 0.3125rem 0.5rem 0.375rem;
+                font-size: 1rem;
+              }
+
+              .corner {
+                position: absolute;
+                left: -8px;
+                bottom: 0;
+                width: 0;
+                height: 0;
+                border-right: 10px solid var(--background-chat);
+                border-top: 10px solid transparent;
+
+                @media (min-width: 768px) {
+                  left: -10px;
+                  border-right: 15px solid var(--background-chat);
+                  border-top: 15px solid transparent;
+                }
+              }
+            }
+          }
+
+          .second {
+            align-self: flex-end;
+            .foundMessages {
+              color: var(--input-hover);
+            }
+            .curentFoundMessage {
+              color: #00bfff;
+            }
+            p {
+              position: relative;
+              max-width: 240px;
+              padding: 0.2rem 0.35rem 0.25rem;
+              background-color: var(--background-chat);
+              color: var(--h1-color);
+              border-radius: 20px;
+              border-end-end-radius: 0px;
+              word-break: break-word;
+              font-size: 0.9rem;
+
+              @media (min-width: 576px) {
+                max-width: 320px;
+              }
+
+              @media (min-width: 768px) {
+                max-width: 400px;
+                padding: 0.2125rem 0.4rem 0.275rem;
+                font-size: 1rem;
+              }
+
+              .corner {
+                position: absolute;
+                right: -15px;
+                bottom: 0;
+                width: 0;
+                height: 0;
+                border-left: 8px solid var(--background-chat);
+                border-right: 8px solid transparent;
+                border-top: 8px solid transparent;
+
+                @media (min-width: 768px) {
+                  right: -20px;
+                  border-left: 10px solid var(--background-chat);
+                  border-right: 10px solid transparent;
+                  border-top: 10px solid transparent;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .NoMessages {
+      display: flex;
+      width: fit-content;
+      height: 100%;
+      align-items: center;
+      &__content {
+        background-color: var(--MsPopUo);
+        backdrop-filter: blur(10px);
+        padding: 0.5rem 2.3rem;
+        border-radius: 10px;
+        &__text {
+          text-align: center;
+          h1 {
+            padding: 0.225rem;
+            font-size: 1.2rem;
+            color: var(--h1-color);
+          }
+          p {
+            padding: 0.3rem 0;
+            font-size: 0.9rem;
+            color: var(--p-color);
+          }
+        }
+      }
+    }
+  }
+}
+.loading {
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--background-right);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.loading__gif {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #fff;
+  border-top: 5px solid var(--input-hover);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,68 @@
+.container {
+  position: absolute;
+  top: 0;
+  left: 45px;
+  width: 300px;
+  height: 200px;
+  background-color: var(--background-chat);
+  border-radius: 5px;
+
+  z-index: 5;
+  .banner {
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    background-color: rgb(90, 90, 90);
+    width: 100%;
+    height: 80px;
+  }
+  .wrapper {
+    padding: 0 0.5rem;
+    position: relative;
+    .logo {
+      background-color: var(--background-right);
+      border-radius: 100%;
+
+      top: -35px;
+      position: absolute;
+      img {
+        padding: 0.3rem;
+        border-radius: 100%;
+        width: 84px;
+        height: 84px;
+      }
+      &__avatar {
+        border-radius: 100%;
+        width: 84px;
+        height: 84px;
+        background-color: rgb(135, 116, 225);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2rem;
+        font-weight: bold;
+      }
+    }
+    .UserInfo {
+      padding-top: 3.2rem;
+      width: fit-content;
+      h1 {
+        color: var(--h1-color);
+        &:hover {
+          text-decoration: underline;
+        }
+        cursor: pointer;
+      }
+    }
+    .InputField {
+      margin-top: 0.3rem;
+      input {
+        width: 100%;
+        border-radius: 5px;
+        padding: 0.5rem 0.5rem;
+        color: var(--h1-color);
+        background-color: var(--background-right);
+      }
+    }
+  }
+}

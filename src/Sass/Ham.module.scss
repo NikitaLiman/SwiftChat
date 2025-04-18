@@ -1,0 +1,117 @@
+.container {
+  position: relative;
+  .Ham {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 3px;
+    cursor: pointer;
+    span {
+      background-color: rgb(170, 170, 170);
+      width: 18px;
+      height: 2px;
+      border-radius: 10px;
+    }
+    &:hover {
+      background-color: var(--ham-hover);
+      border-radius: 100%;
+    }
+    .addDots {
+      width: 10px;
+      height: 10px;
+      background-color: red;
+      position: absolute;
+      bottom: 8;
+      right: 8;
+      border-radius: 50%;
+    }
+  }
+  .hamMenu {
+    top: 55px;
+    left: 0;
+    position: absolute;
+    width: 272px;
+    border-radius: 10px;
+    background-color: var(--ham-menu);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    padding: 0.25rem 0;
+    box-shadow: 0 0.25rem 0.5rem 0.125rem var(--box-shadow);
+    ul {
+      padding: 2px 5px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      li {
+        position: relative;
+        cursor: pointer;
+
+        i {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .toggleswitch {
+          position: relative;
+          position: absolute;
+          right: 15px;
+          width: 25px;
+          height: 10.5px;
+          display: flex;
+          align-items: center;
+          background-color: gray;
+          border-radius: 20px;
+          padding: 2px;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+
+          &.on {
+            background-color: var(--input-hover);
+            .togglethumb {
+              transform: translateX(14px);
+            }
+          }
+
+          &.off {
+            background-color: gray;
+            .togglethumb {
+              border: solid 2px gray;
+              background-color: var(--background-chat);
+            }
+          }
+
+          .togglethumb {
+            position: absolute;
+            left: 0;
+            border: solid 2px var(--input-hover);
+            width: 14px;
+            height: 14px;
+            background-color: var(--input-hover);
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+          }
+        }
+        border-radius: 5px;
+        color: var(--h1-color);
+        display: flex;
+        align-items: center;
+        height: 100%;
+        gap: 10px;
+        padding: 4px 7px;
+        font-size: 14px;
+        &:hover {
+          background-color: var(--ham-hover);
+        }
+      }
+      p {
+        margin-top: 5px;
+        text-align: center;
+        color: rgb(170, 170, 170);
+        font-size: 0.8125rem;
+      }
+    }
+  }
+}
