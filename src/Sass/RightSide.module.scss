@@ -1,7 +1,7 @@
 .container {
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   background-color: var(--background-right);
   display: flex;
   .copied {
@@ -51,8 +51,10 @@
     position: relative;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
+    height: 100vh;
 
     &__content {
       width: 100%;
@@ -61,6 +63,8 @@
       overflow-y: auto;
       scrollbar-width: thin;
       scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+      padding-top: 56px;
+      flex: 1;
 
       &::-webkit-scrollbar {
         width: 6px;
@@ -84,13 +88,14 @@
       }
 
       &__messages {
+        display: flex;
+        flex-direction: column;
         width: 100%;
         max-width: 50vw;
         margin: 0 auto;
-        display: flex;
-        flex-direction: column;
         height: 100%;
         padding: 0px 1.5rem;
+        flex: 1;
 
         @media (max-width: 992px) {
           max-width: 70vw;

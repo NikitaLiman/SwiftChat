@@ -1,6 +1,8 @@
 .container {
+  position: fixed;
   width: 100%;
   background-color: var(--background-chat);
+  z-index: 5;
   &__content {
     width: 100%;
     height: 56px;
