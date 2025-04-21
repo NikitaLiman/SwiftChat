@@ -43,6 +43,8 @@ const AuthModel: React.FC = () => {
             <Image
               src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg"
               alt=""
+              width={100}
+              height={100}
             />
             <p>GitHub</p>
           </div>{" "}
@@ -58,6 +60,8 @@ const AuthModel: React.FC = () => {
             <Image
               src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/1200px-Google_%22G%22_logo.svg.png"
               alt=""
+              width={100}
+              height={100}
             />
             <p>Google</p>
           </div>
