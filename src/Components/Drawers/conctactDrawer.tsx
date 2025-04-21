@@ -15,6 +15,7 @@ interface Props {
   session: any;
   chat: Chat[];
   handleNewChatCreated: () => Promise<void>;
+  setIsOpen: (boolean: boolean) => void;
 }
 
 const ContactDrawer: React.FC<Props> = ({
@@ -23,12 +24,20 @@ const ContactDrawer: React.FC<Props> = ({
   session,
   chat,
   handleNewChatCreated,
+  setIsOpen,
 }) => {
   const [contacts, setContacts] = React.useState<{
     send: any[];
     received: any[];
   }>({ send: [], received: [] });
-
+  const [isMobile, setIsMobile] = React.useState<boolean>(false);
+  React.useEffect(() => {
+    const mobileBreakpoint = 768;
+    const mobileView = window.innerWidth <= mobileBreakpoint;
+    if (mobileView) {
+      setIsMobile(true);
+    }
+  }, []);
   const selectedChat = ChatStore((state) => state.useChatset);
   const acceptRequest = async (userId: number, contactId: number) => {
     try {
@@ -59,7 +68,10 @@ const ContactDrawer: React.FC<Props> = ({
       getContacts();
     }
   }, [active, session]);
-
+  const closeDrawer = () => {
+    OnClose();
+    setIsOpen(false);
+  };
   const pendingRequests =
     contacts.received?.filter((item) => !item.accepted) || [];
   const acceptedContacts = [
@@ -173,7 +185,10 @@ const ContactDrawer: React.FC<Props> = ({
                           selectedChat(OpenChat);
                         }
                         if (!OpenChat) {
-                          await CreateChat(session.user.id, item.contact.id);
+                          await CreateChat(
+                            session?.user?.id,
+                            item?.contact?.id
+                          );
                           await handleNewChatCreated();
 
                           const updatedChat = ChatStore.getState().chats;
@@ -183,6 +198,9 @@ const ContactDrawer: React.FC<Props> = ({
                           if (newChat) {
                             selectedChat(newChat);
                           }
+                        }
+                        if (isMobile) {
+                          closeDrawer();
                         }
                       }}
                       className={Styles.contact__content}

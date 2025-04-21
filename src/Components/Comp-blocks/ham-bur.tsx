@@ -22,6 +22,7 @@ interface Props {
   handleNewChatCreated: () => Promise<void>;
   contactReceived: any[];
   chat: Chat[];
+  setIsOpen: (boolean: boolean) => void;
 }
 
 const HamBurger: React.FC<Props> = ({
@@ -31,6 +32,7 @@ const HamBurger: React.FC<Props> = ({
   handleNewChatCreated,
   contactReceived,
   chat,
+  setIsOpen,
 }) => {
   const [ham, setHam] = React.useState<boolean>(false);
   const [isFocus, setFocus] = React.useState<boolean>(false);
@@ -167,6 +169,7 @@ const HamBurger: React.FC<Props> = ({
         session={session}
         OnClose={OnClose}
         active={ActiveDrawer}
+        setIsOpen={setIsOpen}
       />
     </>
   );

@@ -7,7 +7,6 @@
 }
 .containerActive {
   position: absolute;
-  top: 0;
   width: 100%;
   height: 100%;
   right: 3px;
@@ -97,7 +96,7 @@
   &__content {
     display: flex;
     flex-direction: column;
-    max-height: 95vh;
+    max-height: calc(100% - 3.5rem);
     overflow-y: auto;
     overflow-x: hidden;
     scrollbar-width: thin;

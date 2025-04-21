@@ -177,6 +177,7 @@ const Chat: React.FC<Props> = ({ session }) => {
               session={session}
               onOpen={() => setClose((prev) => !prev)}
               active={onClose}
+              setIsOpen={setIsOpen}
             />
           )}
           <Search

@@ -1,13 +1,9 @@
 .container {
   position: relative;
   width: 100%;
-  // Используем динамическую высоту вместо фиксированного 100vh
-  height: 100vh; // Fallback для десктопа
-  height: calc(var(--vh, 1vh) * 100); // Динамическая высота для мобильных
+  height: 100vh;
   background-color: var(--background-right);
   display: flex;
-  overflow: hidden; // Предотвращаем прокрутку на контейнере
-
   .copied {
     position: absolute;
     top: 100px;
@@ -51,20 +47,20 @@
       transform: translateY(0);
     }
   }
-
   .flexContainer {
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    height: 100%; // Заполняем всю высоту родителя
 
     &__content {
       width: 100%;
-      flex: 1; // Использует доступное пространство
+      height: 100%;
       overflow: hidden;
-      position: relative; // Для абсолютного позиционирования дочерних элементов
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
 
       &::-webkit-scrollbar {
         width: 6px;
@@ -95,8 +91,6 @@
         flex-direction: column;
         height: 100%;
         padding: 0px 1.5rem;
-        overflow-y: auto; // Прокрутка только для контента сообщений
-        -webkit-overflow-scrolling: touch; // Плавная прокрутка на iOS
 
         @media (max-width: 992px) {
           max-width: 70vw;
@@ -352,7 +346,6 @@
         }
       }
     }
-
     .NoMessages {
       display: flex;
       width: fit-content;
@@ -380,11 +373,9 @@
     }
   }
 }
-
 .loading {
-  width: 100%;
+  width: 100vw;
   height: 100vh;
-  height: calc(var(--vh, 1vh) * 100); // Динамическая высота
   background-color: var(--background-right);
   display: flex;
   justify-content: center;
@@ -407,19 +398,5 @@
   }
   100% {
     transform: rotate(360deg);
-  }
-}
-
-// Класс для подсветки найденного сообщения
-.highlightMessage {
-  animation: highlight 2s ease;
-}
-
-@keyframes highlight {
-  0% {
-    background-color: rgba(0, 191, 255, 0.2);
-  }
-  100% {
-    background-color: transparent;
   }
 }

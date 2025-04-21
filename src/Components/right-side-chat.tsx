@@ -105,6 +105,7 @@ const RightSide: React.FC<Props> = ({ session }) => {
 
     if (newMessage.trim()) {
       SocketIo.emit("message", data);
+
       useChatStore.getState().setMesge(newMessage);
     }
     if (newMessagePopUp.trim()) {
@@ -242,26 +243,7 @@ const RightSide: React.FC<Props> = ({ session }) => {
       }, 2000);
     }
   };
-  React.useEffect(() => {
-    const setVh = () => {
-      const vh = window.innerHeight * 0.01;
 
-      document.documentElement.style.setProperty("--vh", `${vh}px`);
-    };
-
-    setVh();
-
-    window.addEventListener("resize", setVh);
-    window.addEventListener("orientationchange", setVh);
-
-    window.visualViewport?.addEventListener("resize", setVh);
-
-    return () => {
-      window.removeEventListener("resize", setVh);
-      window.removeEventListener("orientationchange", setVh);
-      window.visualViewport?.removeEventListener("resize", setVh);
-    };
-  }, []);
   return (
     <>
       <div className={Styles.container}>
