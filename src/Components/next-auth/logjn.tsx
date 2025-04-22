@@ -11,7 +11,6 @@ import { useRouter } from "next/navigation";
 const LoginForm: React.FC = () => {
   const router = useRouter();
   const onSubmit = async (data: TformLoginValues) => {
-    console.log("Form data:", data);
     try {
       const res = await signIn("credentials", {
         ...data,

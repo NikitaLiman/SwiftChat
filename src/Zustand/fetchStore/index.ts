@@ -38,7 +38,6 @@ export const ChatStore = create<ChatProps>((set) => ({
     set({ isLoading: true, error: null });
     try {
       const res = await fetchChats(userId);
-      console.log("Данные с сервера:", res);
 
       const sortedChatsByTime = res.chats.sort((a: Chat, b: Chat) => {
         const lastMessageA = a.messages?.[a.messages.length - 1]?.createdAt;
@@ -65,8 +64,6 @@ export const ChatStore = create<ChatProps>((set) => ({
         {}
       );
 
-      console.log(lastMessagesMap, "lastMessages");
-
       useChatStore.setState((state) => ({
         lastMessage: {
           ...state.lastMessage,
@@ -80,16 +77,12 @@ export const ChatStore = create<ChatProps>((set) => ({
         )
         .filter((contact: Contact) => contact.contactId !== userId);
 
-      console.log(contactReceived, "contactReceivedcontactReceived");
       const sentChats = sortedChatsByTime
         .flatMap((chat: Chat) =>
           chat.users.flatMap((user) => user.user.contactsSent)
         )
         .filter((contact: Contact) => contact.contactId === userId);
 
-      console.log(sentChats, "sentChatssentChats");
-
-      console.log("Отсортированные чаты:", sortedChatsByTime);
       set({
         chats: sortedChatsByTime,
         isLoading: false,
@@ -120,7 +113,7 @@ export const ChatStore = create<ChatProps>((set) => ({
     set({ isLoadingMessages: true });
     try {
       const res = await fetchMessages(currentChat);
-      console.log(res, "mesRes");
+
       const sortedMessages = res.sort((a: any, b: any) => a.id - b.id);
       useChatStore.setState((state) => ({
         lastMessage: {

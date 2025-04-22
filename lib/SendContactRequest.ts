@@ -9,7 +9,6 @@ export const sendFriendRequest = async (
       currentUserId,
       targetUserId,
     });
-    console.log(res, "res");
   } catch (error) {
     console.log(error);
   }

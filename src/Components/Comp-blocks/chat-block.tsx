@@ -14,7 +14,7 @@ interface Props {
 
 const ChatBLock: React.FC<Props> = ({ chat }) => {
   const lastMessage = useChatStore((state) => state.lastMessage[chat.id]);
-  console.log(lastMessage, "lastMessage");
+
   React.useEffect(() => {}, [chat]);
   return (
     <div className={Styles.container}>

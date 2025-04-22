@@ -54,7 +54,7 @@ const TopBar: React.FC<Props> = ({
   const [PopUp, setPopUp] = React.useState<boolean>(false);
   const searchInputRef = React.useRef<HTMLInputElement>(null);
   const userStatuses = useUserStatus((state) => state.useStatus);
-  console.log(userStatuses, "userStatuses");
+
   const getSearchResults = async (chatId: number) => {
     try {
       if (!query.trim()) {
@@ -89,7 +89,7 @@ const TopBar: React.FC<Props> = ({
     if (searchResults.length === 0) return;
 
     const newIndex = (currentResultIndex.index + 1) % searchResults.length;
-    console.log(newIndex);
+
     setCurrentResultIndex({
       index: newIndex,
       messageId: searchResults[newIndex].id,

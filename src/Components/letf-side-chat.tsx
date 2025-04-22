@@ -17,13 +17,12 @@ interface Props {
 
 const Chat: React.FC<Props> = ({ session }) => {
   const { chats } = ChatStore();
-  console.log(chats, "awda");
+
   const fetchChat = ChatStore((state) => state.fetchChat);
   const deleteChat = ChatStore((state) => state.deleteChat);
   const contactReceived = ChatStore((state) => state.contactReceived);
   const contactSent = ChatStore((state) => state.contactSent);
-  console.log(contactReceived, "contactReceived");
-  console.log(contactSent, "contactSent");
+
   const [onClose, setClose] = React.useState<boolean>(false);
   const [width, setWidth] = React.useState(450);
   const containerRef = React.useRef<HTMLDivElement | null>(null);

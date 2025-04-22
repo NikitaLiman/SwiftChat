@@ -57,7 +57,6 @@ const ContactDrawer: React.FC<Props> = ({
         `/Contacts?userId=${Number(session.user.id)}`
       );
       setContacts(res.data);
-      console.log(res.data, "contacts data");
     } catch (error) {
       console.log(error);
     }
@@ -78,8 +77,6 @@ const ContactDrawer: React.FC<Props> = ({
     ...(contacts.send?.filter((item) => item.accepted) || []),
     ...(contacts.received?.filter((item) => item.accepted) || []),
   ];
-  console.log(contacts, "chatchat");
-  console.log(chat, "chatchatchatchat");
 
   const TargetUsersId = contacts.send.map((item) => item.contact.id);
   const filteredChats = chat.filter((chat) =>

@@ -4,7 +4,6 @@ import { prisma } from "../../../../../prisma/prisma-client";
 export const POST = async (req: NextRequest) => {
   try {
     const { currentUserId, targetUserId } = await req.json();
-    console.log(currentUserId, targetUserId, "ids");
 
     if (currentUserId === targetUserId) {
       return NextResponse.json({ message: "UserId & contactId are same" });

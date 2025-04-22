@@ -61,7 +61,6 @@ const EditDrawerBlock: React.FC<Props> = ({ active, close, user }) => {
   };
 
   const onSubmit = async (data: TformEditValues) => {
-    console.log("Form data:", data);
     try {
       let avatarUrl = user.avatar;
       if (selectedPhoto) {

@@ -33,6 +33,7 @@ const RightSide: React.FC<Props> = ({ session }) => {
   const { messages } = ChatStore();
   const currentChat = ChatStore((state) => state.selectedChat);
   const messagesEndRef = React.useRef<HTMLDivElement | null>(null);
+  const [isScrolling, setIsScrolling] = React.useState(false);
   const [onDrawer, setDrawer] = React.useState<boolean>(false);
   const [popupStyles, setPopupStyles] = React.useState<React.CSSProperties>({});
   const [popUpDelete, setPopupDelete] = React.useState<boolean>(false);
@@ -62,23 +63,33 @@ const RightSide: React.FC<Props> = ({ session }) => {
   const [copied, setCopied] = React.useState<boolean>(false);
   const fetchMessages = async () => {
     try {
-      getMessages(Number(currentChat?.id));
+      await getMessages(Number(currentChat?.id));
     } catch (error) {
       console.error("Error fetching messages:", error);
     }
   };
-  console.log(currentChat, "currentChat");
+  const scrollToBottom = (behavior: ScrollBehavior = "auto") => {
+    if (messagesEndRef.current && !isScrolling) {
+      try {
+        setTimeout(() => {
+          messagesEndRef.current?.scrollIntoView({ behavior, block: "end" });
+        }, 100);
+      } catch (error) {
+        console.error("Error scrolling to bottom:", error);
+      }
+    }
+  };
   React.useEffect(() => {
     if (!currentChat || !currentChat.id) return;
     SocketIo.emit("userOnline", session.user.id);
     fetchMessages();
     SocketIo.emit("joinChat", currentChat.id);
     const handleUserStatusUpdate = ({ userId, isOnline, lastSeen }: any) => {
-      console.log("Received status update:", userId, isOnline, lastSeen);
       useUserStatus.getState().setUseStatus(userId, isOnline);
     };
     const handleNewMessage = (message: any) => {
       setLastMessageId(message.id);
+      setTimeout(() => scrollToBottom("smooth"), 100);
     };
     SocketIo.on("userStatusUpdate", handleUserStatusUpdate);
     SocketIo.on("newMessage", handleNewMessage);
@@ -93,7 +104,9 @@ const RightSide: React.FC<Props> = ({ session }) => {
   }, [currentChat?.id, lastMessageId]);
 
   React.useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (messages.length > 0) {
+      scrollToBottom("smooth");
+    }
   }, [messages]);
 
   const sendMessage = async () => {
@@ -192,7 +205,6 @@ const RightSide: React.FC<Props> = ({ session }) => {
     []
   );
   const CopyFunction = (text: string) => {
-    console.log(text, "text");
     try {
       navigator.clipboard.writeText(text);
       setCopied(true);

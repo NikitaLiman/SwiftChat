@@ -4,7 +4,6 @@ import { prisma } from "../../../../prisma/prisma-client";
 export async function POST(req: NextRequest) {
   try {
     const { currentUserId, TargetUserId } = await req.json();
-    console.log("Received data on server:", { currentUserId, TargetUserId });
 
     if (!currentUserId || !TargetUserId) {
       return NextResponse.json("Not users to make chat");

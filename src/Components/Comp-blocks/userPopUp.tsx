@@ -18,8 +18,6 @@ const UserPopUp: React.FC<Props> = ({
   newMessage,
   setNewMessage,
 }) => {
-  console.log(messageUser, "messageUser");
-
   return (
     <>
       {parseInt(messageUser.id) === parseInt(session.user.id) ? null : (
