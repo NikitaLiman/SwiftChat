@@ -58,6 +58,7 @@ const RightSide: React.FC<Props> = ({ session }) => {
     index: -1,
     messageId: null,
   });
+  const touchTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
   const [copied, setCopied] = React.useState<boolean>(false);
   const fetchMessages = async () => {
     try {
@@ -243,7 +244,26 @@ const RightSide: React.FC<Props> = ({ session }) => {
       }, 2000);
     }
   };
+  const handleTouchStart = (e: React.TouchEvent, messageId: number) => {
+    touchTimeoutRef.current = setTimeout(() => {
+      e.preventDefault();
+      setContextMenu(ContextMenu === messageId ? null : messageId);
+    }, 100);
+  };
 
+  const handleTouchEnd = () => {
+    if (touchTimeoutRef.current) {
+      clearTimeout(touchTimeoutRef.current);
+      touchTimeoutRef.current = null;
+    }
+  };
+
+  const handleTouchMove = () => {
+    if (touchTimeoutRef.current) {
+      clearTimeout(touchTimeoutRef.current);
+      touchTimeoutRef.current = null;
+    }
+  };
   return (
     <>
       <div className={Styles.container}>
@@ -281,6 +301,11 @@ const RightSide: React.FC<Props> = ({ session }) => {
                           className={Styles.info}
                         >
                           <div
+                            onTouchStart={(e) =>
+                              handleTouchStart(e, message.id)
+                            }
+                            onTouchEnd={handleTouchEnd}
+                            onTouchMove={handleTouchMove}
                             onClick={() => toggleUserPopUp(message.id)}
                             className={Styles.logo}
                           >
@@ -361,8 +386,10 @@ const RightSide: React.FC<Props> = ({ session }) => {
                                         setContextMenu(null);
                                       } else if (item.key === "Copy Text") {
                                         CopyFunction(message.text);
+                                        setContextMenu(null);
                                       } else if (item.key === "Reply") {
                                         handleReply(message);
+                                        setContextMenu(null);
                                       }
                                     }}
                                     key={i}

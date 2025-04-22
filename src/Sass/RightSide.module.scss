@@ -1,9 +1,10 @@
 .container {
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 100dvh;
   background-color: var(--background-right);
   display: flex;
+  overflow: hidden;
   .copied {
     position: absolute;
     top: 100px;
@@ -54,8 +55,7 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    height: 100vh;
-
+    overflow: hidden;
     &__content {
       width: 100%;
       height: 100%;

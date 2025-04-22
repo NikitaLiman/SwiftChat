@@ -40,6 +40,7 @@ const Chat: React.FC<Props> = ({ session }) => {
   const [click, useClicked] = React.useState<boolean>(false);
   const [isMobile, setIsMobile] = React.useState<boolean>(false);
   const [isOpen, setIsOpen] = React.useState<boolean>(true);
+  const touchTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
 
   const isResizing = React.useRef(false);
   const initialX = React.useRef(0);
@@ -67,6 +68,19 @@ const Chat: React.FC<Props> = ({ session }) => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [isOpen]);
+
+  // Закрываем меню при клике вне его
+  React.useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (pressed && !e.defaultPrevented) {
+        setpressed(false);
+        setMenuPosition(null);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, [pressed]);
 
   const startHandle = (e: React.MouseEvent) => {
     if (isMobile) return;
@@ -139,6 +153,33 @@ const Chat: React.FC<Props> = ({ session }) => {
     setMenuPosition({ x: clientX, y: clientY });
   };
 
+  const handleTouchStart = (e: React.TouchEvent, chatId: number) => {
+    touchTimeoutRef.current = setTimeout(() => {
+      const touch = e.touches[0];
+      setSelectedChatId(chatId);
+      setMenuPosition({
+        x: touch.clientX,
+        y: touch.clientY,
+      });
+      setpressed(true);
+      e.preventDefault();
+    }, 200);
+  };
+
+  const handleTouchEnd = () => {
+    if (touchTimeoutRef.current) {
+      clearTimeout(touchTimeoutRef.current);
+      touchTimeoutRef.current = null;
+    }
+  };
+
+  const handleTouchMove = () => {
+    if (touchTimeoutRef.current) {
+      clearTimeout(touchTimeoutRef.current);
+      touchTimeoutRef.current = null;
+    }
+  };
+
   const listofrcm = [
     {
       icon: <Trash2 size={20} color="#DC143C" />,
@@ -146,9 +187,11 @@ const Chat: React.FC<Props> = ({ session }) => {
       click: deleteChat1,
     },
   ];
+
   const HandleToogle = () => {
     useClicked(!click);
   };
+
   return (
     <div
       className={`${Styles.resizeCustom} ${isMobile ? Styles.mobileView : ""}`}
@@ -194,6 +237,9 @@ const Chat: React.FC<Props> = ({ session }) => {
                 onContextMenu={(e) =>
                   handlePosition(e.nativeEvent, chatItem.id)
                 }
+                onTouchStart={(e) => handleTouchStart(e, chatItem.id)}
+                onTouchEnd={handleTouchEnd}
+                onTouchMove={handleTouchMove}
                 onClick={() => {
                   selectedChat(chatItem);
                   if (isMobile) {
@@ -201,35 +247,9 @@ const Chat: React.FC<Props> = ({ session }) => {
                   }
                 }}
                 key={i}
+                className={Styles.chatItemContainer}
               >
                 <ChatBLock chat={chatItem} />
-                {pressed && menuPosition && (
-                  <div
-                    className={Styles.rcm}
-                    style={{
-                      position: "absolute",
-                      left: menuPosition.x,
-                      top: menuPosition.y,
-                    }}
-                  >
-                    <ul>
-                      {listofrcm.map((item, i) => (
-                        <li
-                          onClick={async (e) => {
-                            e.stopPropagation();
-                            if (selectedChatId !== null) {
-                              deleteChat1(selectedChatId);
-                              setpressed(false);
-                            }
-                          }}
-                          key={i}
-                        >
-                          <span>{item.icon}</span> {item.name}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
               </div>
             ))
           ) : (
@@ -241,6 +261,36 @@ const Chat: React.FC<Props> = ({ session }) => {
                 {t("No chats available")}
               </h3>
               <p className={Styles.NoChats__message}>{t("noMessages")}</p>
+            </div>
+          )}
+
+          {/* PopUp для действий с чатом */}
+          {pressed && menuPosition && (
+            <div
+              className={Styles.popUpMenu}
+              style={{
+                left: menuPosition.x,
+                top: menuPosition.y,
+              }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <ul>
+                {listofrcm.map((item, i) => (
+                  <li
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (selectedChatId !== null) {
+                        deleteChat1(selectedChatId);
+                        setpressed(false);
+                      }
+                    }}
+                    key={i}
+                    className={Styles.popUpMenuItem}
+                  >
+                    <span>{item.icon}</span> {item.name}
+                  </li>
+                ))}
+              </ul>
             </div>
           )}
         </div>
