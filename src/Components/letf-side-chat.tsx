@@ -264,7 +264,6 @@ const Chat: React.FC<Props> = ({ session }) => {
             </div>
           )}
 
-          {/* PopUp для действий с чатом */}
           {pressed && menuPosition && (
             <div
               className={Styles.popUpMenu}

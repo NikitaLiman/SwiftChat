@@ -4,6 +4,7 @@
   margin-bottom: 10px;
   border-radius: 10px;
   cursor: pointer;
+  z-index: -100;
   &__content {
     display: flex;
     align-items: center;
