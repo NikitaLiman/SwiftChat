@@ -68,7 +68,6 @@ const Chat: React.FC<Props> = ({ session }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, [isOpen]);
 
-  // Закрываем меню при клике вне его
   React.useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (pressed && !e.defaultPrevented) {
