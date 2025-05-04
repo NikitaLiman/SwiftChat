@@ -179,24 +179,18 @@ const RightSide: React.FC<Props> = ({ session }) => {
   const calculatePopupPosition = React.useCallback(
     (MessageElement: HTMLDivElement) => {
       const messageRect = MessageElement.getBoundingClientRect();
-      const ContainerRect =
-        messagesEndRef.current?.parentElement?.getBoundingClientRect();
-      if (!ContainerRect) {
-        return {};
-      }
+
       const styles: React.CSSProperties = {
         position: "absolute",
       };
 
-      const spaceBelow = ContainerRect.bottom - messageRect.bottom;
+      const spaceBelow = window.innerHeight - messageRect.bottom;
       const heightPopUp = 120;
 
       if (spaceBelow < heightPopUp) {
-        styles.bottom = `${messageRect.height + 10}px`;
-        styles.left = "0";
+        styles.bottom = `${messageRect.height - 10}px`;
       } else {
         styles.top = `${messageRect.height + 10}px`;
-        styles.left = "0";
       }
 
       return styles;
