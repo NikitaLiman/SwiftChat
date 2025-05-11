@@ -179,7 +179,6 @@ const RightSide: React.FC<Props> = ({ session }) => {
   const calculatePopupPosition = React.useCallback(
     (MessageElement: HTMLDivElement) => {
       const messageRect = MessageElement.getBoundingClientRect();
-
       const styles: React.CSSProperties = {
         position: "absolute",
       };
