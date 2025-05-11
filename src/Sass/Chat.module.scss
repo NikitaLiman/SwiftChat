@@ -86,7 +86,9 @@
         touch-action: manipulation;
         -webkit-tap-highlight-color: transparent;
         padding: 0 12px;
-        cursor: pointer;
+        &:hover {
+          cursor: pointer;
+        }
       }
 
       .NoChats {
