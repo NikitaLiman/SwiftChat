@@ -48,23 +48,6 @@ const AuthModel: React.FC = () => {
             />
             <p>GitHub</p>
           </div>{" "}
-          <div
-            onClick={() =>
-              signIn("google", {
-                redirect: true,
-                callbackUrl: "https://swift-chat-fawn.vercel.app/",
-              })
-            }
-            className={Styles.Google}
-          >
-            <Image
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/1200px-Google_%22G%22_logo.svg.png"
-              alt=""
-              width={100}
-              height={100}
-            />
-            <p>Google</p>
-          </div>
         </div>
         <div className={Styles.switch}>
           <button onClick={onSwitch}>
