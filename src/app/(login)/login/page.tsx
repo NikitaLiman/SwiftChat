@@ -29,31 +29,30 @@ const AuthModel: React.FC = () => {
         </div>
         <div className={Styles.form}>
           {state === "login" ? <LoginForm /> : <RegisterForm />}
-        </div>
-        <div className={Styles.bySocial}>
-          <div
-            onClick={() =>
-              signIn("github", {
-                redirect: true,
-                callbackUrl: "https://swift-chat-fawn.vercel.app/",
-              })
-            }
-            className={Styles.github}
-          >
-            <Image
-              src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg"
-              alt=""
-              width={100}
-              height={100}
-            />
-            <p>GitHub</p>
-          </div>{" "}
-        </div>
-        <div className={Styles.switch}>
-          <button onClick={onSwitch}>
-            <p>{state === "login" ? "register" : "login"}</p>
-            <ArrowDown className={Styles.svg} size={20} color="white" />
-          </button>
+          <div className={Styles.bySocial}>
+            <div
+              onClick={() =>
+                signIn("github", {
+                  redirect: true,
+                  callbackUrl: "https://swift-chat-fawn.vercel.app/",
+                })
+              }
+              className={Styles.github}>
+              <Image
+                src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg"
+                alt=""
+                width={100}
+                height={100}
+              />
+              <p>GitHub</p>
+            </div>{" "}
+          </div>
+          <div className={Styles.switch}>
+            <button onClick={onSwitch}>
+              <p>{state === "login" ? "register" : "login"}</p>
+              <ArrowDown className={Styles.svg} size={20} color="white" />
+            </button>
+          </div>
         </div>
       </div>
     </div>

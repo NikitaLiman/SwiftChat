@@ -44,8 +44,14 @@ const LoginForm: React.FC = () => {
         </div>
 
         <div className={Styles.inputs}>
-          <FormInput label="E-Mail" name="email" required={true} />
           <FormInput
+            classname={Styles.input}
+            label="E-Mail"
+            name="email"
+            required={true}
+          />
+          <FormInput
+            classname={Styles.input}
             label="Password"
             name="password"
             required={true}

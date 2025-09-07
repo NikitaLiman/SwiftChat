@@ -39,15 +39,27 @@ const RegisterForm: React.FC = () => {
         </div>
 
         <div className={Styles.inputs}>
-          <FormInput label="Fullname" name="fullname" required={true} />
-          <FormInput label="E-Mail" name="email" required={true} />
           <FormInput
+            classname={Styles.input}
+            label="Fullname"
+            name="fullname"
+            required={true}
+          />
+          <FormInput
+            classname={Styles.input}
+            label="E-Mail"
+            name="email"
+            required={true}
+          />
+          <FormInput
+            classname={Styles.input}
             label="Password"
             name="password"
             required={true}
             type="password"
           />
           <FormInput
+            classname={Styles.input}
             label="Confirm Password"
             name="confirmPassword"
             type="password"
