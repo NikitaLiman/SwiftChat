@@ -79,6 +79,7 @@ export const authOptions: AuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   session: {
     strategy: "jwt",
+    maxAge: 1 * 60,
   },
   callbacks: {
     // @ts-expect-error: signIn must return boolean or string, ignore undefined for now
@@ -147,7 +148,16 @@ export const authOptions: AuthOptions = {
 
       return token;
     },
-
+    cookies: {
+      sessionToken: {
+        name: `next-auth.session-token`,
+        options: {
+          httpOnly: true,
+          sameSite: "lax",
+          path: "/",
+        },
+      },
+    },
     session({ session, token }) {
       if (session?.user) {
         session.user.id = token.id;

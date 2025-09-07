@@ -19,73 +19,89 @@ interface Props {
 }
 
 const EditDrawerBlock: React.FC<Props> = ({ active, close, user }) => {
+  const safeUser = React.useMemo(() => {
+    return user ? JSON.parse(JSON.stringify(user)) : null;
+  }, [user]);
+  const [avatar, setAvatar] = React.useState(
+    safeUser?.cvBase64
+      ? `data:${safeUser.mimeType};base64,${safeUser.cvBase64}`
+      : log
+  );
   const [clicked, setClicked] = React.useState<boolean>(false);
   const [selectedPhoto, setSelectedPhoto] = React.useState<File | null>(null);
-
+  console.log(selectedPhoto, "photo");
   const form = useForm({
     resolver: zodResolver(EditProfile),
     defaultValues: {
-      fullname: user?.fullname || "",
-      email: user?.email || "",
-      bio: user?.bio || "",
-      username: user?.username || "",
+      fullname: safeUser?.fullname || "",
+      email: safeUser?.email || "",
+      bio: safeUser?.bio || "",
+      username: safeUser?.username || "",
     },
   });
+
   const { watch } = form;
+
   React.useEffect(() => {
-    if (user) {
+    if (safeUser) {
       form.reset({
-        fullname: user?.fullname || "",
-        email: user?.email || "",
-        bio: user?.bio || "",
-        username: user?.username || "",
+        fullname: safeUser?.fullname || "",
+        email: safeUser?.email || "",
+        bio: safeUser?.bio || "",
+        username: safeUser?.username || "",
       });
     }
-  }, [user, form]);
+  }, [safeUser, form]);
 
   React.useEffect(() => {
     const subscription = watch((value) => {
       const isChanged = Object.keys(value).some(
-        (key) => value[key as keyof TformEditValues] !== user?.[key]
+        (key) => value[key as keyof TformEditValues] !== safeUser?.[key]
       );
       setClicked(isChanged);
     });
     return () => subscription.unsubscribe();
-  }, [watch, user]);
+  }, [watch, safeUser]);
 
   const ChangePhoto = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const target = event.target.files?.[0];
-    if (target) {
-      setSelectedPhoto(target);
+    const file = event.target.files?.[0];
+    if (file) {
+      setSelectedPhoto(file);
+      setAvatar(URL.createObjectURL(file)); // сразу показать на UI
+      setClicked(true);
     }
   };
 
   const onSubmit = async (data: TformEditValues) => {
     try {
-      let avatarUrl = user.avatar;
+      let updatedAvatar = safeUser?.avatar;
+
       if (selectedPhoto) {
         const formData = new FormData();
         formData.append("file", selectedPhoto);
-
-        const response = await instanseAxios.post(`/upload`, formData);
-
+        formData.append("email", data.email);
+        const response = await instanseAxios.post("/upload", formData);
         if (response.status !== 200)
           throw new Error("Ошибка загрузки аватарки");
 
-        const { url } = await response.data;
-        avatarUrl = url;
+        const { cvBase64, mimeType } = response.data;
+
+        updatedAvatar = `data:${mimeType};base64,${cvBase64}`;
       }
+
       await userSessionUpdate({
-        email: data.email,
         fullname: data.fullname,
+        email: data.email,
         bio: data.bio || "",
-        avatar: avatarUrl || "",
+        avatar: updatedAvatar,
       });
+
+      // сразу обновляем локальный state, чтобы UI поменялся
+      setClicked(false);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
-
   return (
     <>
       {active ? (
@@ -103,17 +119,21 @@ const EditDrawerBlock: React.FC<Props> = ({ active, close, user }) => {
           <div className={Styles.container__content}>
             <div className={Styles.container__content__avatarBox}>
               <div className={Styles.Avatar}>
-                {user?.avatar ? (
+                {safeUser?.avatar ? (
                   <Image
-                    src={user?.avatar}
-                    width={20000}
-                    height={20000}
+                    src={
+                      avatar
+                        ? avatar
+                        : `data:${safeUser.mimeType};base64,${safeUser.cvBase64}`
+                    }
+                    width={200}
+                    height={200}
                     alt="Profile Image"
                   />
                 ) : (
                   <div className={Styles.Avatar__avatar}>
                     <Image src={log} alt="" width={20000} height={20000} />
-                    <p>{user?.fullname.substring(0, 1)}</p>
+                    <p>{safeUser?.fullname?.substring(0, 1)}</p>
                   </div>
                 )}
                 <div onClick={() => setClicked(true)} className={Styles.input}>
@@ -123,11 +143,9 @@ const EditDrawerBlock: React.FC<Props> = ({ active, close, user }) => {
               </div>
             </div>
             <FormProvider {...form}>
-              {" "}
               <form
                 className={Styles.form}
-                onSubmit={form.handleSubmit(onSubmit)}
-              >
+                onSubmit={form.handleSubmit(onSubmit)}>
                 <div className={Styles.form__content}>
                   <FormEdit
                     name="fullname"
@@ -135,7 +153,7 @@ const EditDrawerBlock: React.FC<Props> = ({ active, close, user }) => {
                     required={false}
                     classname={Styles.input}
                     placeholder=""
-                  />{" "}
+                  />
                   <FormEdit
                     name="email"
                     additionalLabel={`${t("email")} (${t("optional")})`}
@@ -150,18 +168,18 @@ const EditDrawerBlock: React.FC<Props> = ({ active, close, user }) => {
                     classname={Styles.input}
                     placeholder=""
                   />
-                </div>{" "}
-                <p>{t("details")}</p>{" "}
+                </div>
+                <p>{t("details")}</p>
                 <div className={Styles.UsernameBox}>
-                  <h1>{t("userName")}</h1>{" "}
+                  <h1>{t("userName")}</h1>
                   <FormEdit
                     name="username"
                     additionalLabel={`${t("userName")} (${t("optional")})`}
                     required={false}
                     classname={Styles.input}
                     placeholder=""
-                  />{" "}
-                </div>{" "}
+                  />
+                </div>
                 {clicked ? (
                   <div className={Styles.confirmButton}>
                     <button>
@@ -171,9 +189,9 @@ const EditDrawerBlock: React.FC<Props> = ({ active, close, user }) => {
                 ) : (
                   ""
                 )}
-              </form>{" "}
+              </form>
             </FormProvider>
-          </div>{" "}
+          </div>
         </div>
       ) : (
         <div className={Styles.unContainer}></div>

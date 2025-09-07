@@ -22,6 +22,10 @@ model User {
   verified     DateTime?
   createdAT    DateTime          @default(now())
   updateAT     DateTime          @updatedAt
+  cvBase64         String?  
+  mimeType         String? 
+  originalFileName String?  
+
 
   UserStatus   UserStatus[]
   chats        ChatUser[]          
